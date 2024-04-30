@@ -23,14 +23,6 @@ export const BurgerConstructor: FC = () => {
   const orderModalData = useSelector(getOrderModalData);
   const isAuth = useSelector(isAuthCheckedSelector);
   const navigate = useNavigate();
-  // const user = useSelector(getUser);
-
-  //{
-  //  bun: {
-  //    price: 0
-  //  },
-  //  ingredients: []
-  //};
 
   const onOrderClick = () => {
     if (!isAuth) {
@@ -41,8 +33,7 @@ export const BurgerConstructor: FC = () => {
 
     const orderData = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map((ingredient) => ingredient._id),
-      constructorItems.bun._id
+      ...constructorItems.ingredients.map((ingredient) => ingredient.id)
     ];
 
     dispatch(getBurgerOrtder(orderData));
