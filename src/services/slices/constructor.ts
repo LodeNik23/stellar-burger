@@ -1,6 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-import { TConstructorIngredient } from '@utils-types';
+import { TIngredient, TConstructorIngredient } from '@utils-types';
+import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface TConstructorState {
   bun: TConstructorIngredient | null;
@@ -16,12 +18,17 @@ export const ConstructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    addIngredient: (state, action) => {
-      if (action.payload.type === 'bun') {
-        state.bun = action.payload;
-      } else {
-        state.ingredients.push({ ...action.payload });
-      }
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type === 'bun') {
+          state.bun = action.payload;
+        } else {
+          state.ingredients.push(action.payload);
+        }
+      },
+      prepare: (ingredient: TIngredient) => ({
+        payload: { ...ingredient, id: uuidv4() }
+      })
     },
     handleMoveIngredient: (state, action) => {
       const { index, step } = action.payload;
