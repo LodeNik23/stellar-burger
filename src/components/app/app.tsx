@@ -25,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const background = location.state?.background;
+  const background = location.state && location.state.background;
 
   useEffect(() => {
     dispatch(getAllIngredients());
