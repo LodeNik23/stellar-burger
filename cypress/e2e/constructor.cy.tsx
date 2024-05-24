@@ -33,7 +33,7 @@
     beforeEach(() => {
       cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as ('getIngredients');
       cy.viewport(1300,800);
-      cy.visit('http://localhost:4000'); 
+      cy.visit('/'); 
     });
 
 
@@ -82,7 +82,7 @@
       cy.intercept('POST', '/api/orders', { fixture: 'order.json' });
 
       cy.viewport(1300,800);
-      cy.visit('http://localhost:4000'); 
+      cy.visit('/'); 
 
       cy.setCookie('accessToken', 'accessToken');
         window.localStorage.setItem('refreshToken', 'refreshToken');    
